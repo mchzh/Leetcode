@@ -3,6 +3,7 @@ import java.util.List;
 
 public class GrayCode {
 
+	private int n = 0;
 	public List<Integer> grayCode(int n) {
         //n is n-1 gray code self + reverse with previou 1 bit add
         List<Integer> graylist = new LinkedList<Integer>();
