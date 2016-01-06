@@ -31,7 +31,7 @@ public class SortColor {
         /*while(nums[left] == 0) {
             left++;
         }*/
-        while(right>0&&nums[right] == 2) {
+        while(right > 0 && nums[right] == 2) {
             right--;
         }
         int roll = left;
