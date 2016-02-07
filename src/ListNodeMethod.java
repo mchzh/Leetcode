@@ -4,6 +4,7 @@ public class ListNodeMethod {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Solution sol = new Solution();
+		ReorderList relist =new ReorderList();
 		ListNode head =new ListNode(1);
 		ListNode node = head;
 		node.next = new ListNode(4);
@@ -20,6 +21,12 @@ public class ListNodeMethod {
 		
 		
 		sol.partition(head, 3);
+		ListNode headre =new ListNode(1);
+		ListNode nodere = headre;
+		nodere.next = new ListNode(-1);
+		nodere = node.next;
+		nodere.next = null;
+		relist.reorderList(headre);
 	}
 
 	public ListNode swapPairs(ListNode head) {
@@ -133,3 +140,67 @@ class Solution {
         return dummy1.next;
     }
 }
+
+class ReorderList {
+    /**
+     * @param head: The head of linked list.
+     * @return: void
+     */
+    public void reorderList(ListNode head) {  
+        // write your code here
+        // find middle
+        // reverse the behind part
+        // merge the first part and the reversed part
+        if(head == null || head.next == null) {
+            return;
+        }
+        
+        ListNode middle = fidnMiddleNode(head);
+        ListNode righthead = reverseNode(middle.next);
+        middle.next = null;
+        
+        merge(head, righthead);
+    }
+    private ListNode fidnMiddleNode(ListNode node) {
+        ListNode slow = node;
+        ListNode fast = node.next;
+        while(fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+    private ListNode reverseNode(ListNode rNode) {
+        if(rNode == null || rNode.next == null) {
+            return rNode;
+        }
+        ListNode preNode = null;
+        while(rNode != null) {
+            ListNode temp = rNode.next;
+            rNode.next = preNode;
+            preNode = rNode;
+            rNode = temp;
+        }
+        return preNode;
+    }
+    private void merge(ListNode halfoffirst, ListNode halfofreverse) {
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        ListNode halfofhead = halfoffirst;
+        while(halfofhead != null && halfofreverse != null) {
+            tail.next = halfofhead;
+            halfofhead = halfofhead.next;
+            tail.next.next = halfofreverse;
+            //halfofhead = halfofhead.next; // reference problem;
+            halfofreverse = halfofreverse.next;
+            tail = tail.next.next;
+        }
+        if(halfofhead != null) {
+            tail.next = halfofhead;
+        } else {
+            tail.next = halfofreverse;
+        }
+        halfoffirst = dummy.next;
+    }
+}
+
