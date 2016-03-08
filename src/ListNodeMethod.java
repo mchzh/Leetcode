@@ -3,7 +3,7 @@ public class ListNodeMethod {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Solution sol = new Solution();
+		/*Solution sol = new Solution();
 		ReorderList relist =new ReorderList();
 		ListNode head =new ListNode(1);
 		ListNode node = head;
@@ -26,8 +26,111 @@ public class ListNodeMethod {
 		nodere.next = new ListNode(-1);
 		nodere = node.next;
 		nodere.next = null;
-		relist.reorderList(headre);
+		relist.reorderList(headre);*/
+		
+		// beging queue implement test
+		Queue queuetest = new Queue();
+		queuetest.enqueue(438);
+		queuetest.dequeue();
+		queuetest.enqueue(452);
+		queuetest.enqueue(379);
+		queuetest.enqueue(884);
+		queuetest.enqueue(332);
+		queuetest.enqueue(55);
+		queuetest.dequeue();
+		queuetest.enqueue(825);
+		queuetest.dequeue();
+		queuetest.dequeue();
+		queuetest.dequeue();
+		queuetest.dequeue();
+		queuetest.enqueue(983);
+		queuetest.dequeue();
+		queuetest.dequeue();
+		queuetest.enqueue(616);
+		queuetest.enqueue(66);
+		String str = "178542";
+		int k = 4;
+		//String temp1 = str.substring(2,2);
+    	//String temp2 = str.substring(1,4);
+		DeleteDigits(str, k);
 	}
+	
+    /**
+     *@param A: A positive integer which has N digits, A is a string.
+     *@param k: Remove k digits.
+     *@return: A string
+     */
+    public static String DeleteDigits(String A, int k) {
+        // write your code here
+        // brute force if DFS to iterator all k element;
+        // usr string to chararray store every char and DFS to select char;
+        // algrithoem law/rule is if prve ele more than neighbor, the prev will be discarded
+        // related to delete the peak element
+        if(A.length() <= k) return "";
+        for(int i = 0; i < k; i++) {
+            for(int j = 0; j < A.length(); j++) {
+                if(j == A.length() -1 || A.charAt(j+1) < A.charAt(j)) {
+                    A = remove(A, j);
+                    break;
+                }
+            }
+        }
+        // the rest of ele of A need to delet the front zero
+        int i = 0;
+        while(i < A.length()-1 && A.charAt(i) == '0') {
+            i++;
+        }
+        return A.substring(i, A.length() - i);
+    }
+    private static String remove(String str, int pos) {
+    	String temp1 = str.substring(0,pos);
+    	String temp2 = str.substring(pos+1, str.length() - pos - 1);
+        return temp1;
+    }
+    
+	public void sortColors(int[] nums) {
+        // write your code here
+        // left and right pointer
+        int left = 0;
+        int right = nums.length - 1;
+        int passpos = left;
+       
+            while(nums[left] == 0 && left < right) {
+                left++;
+            }
+            while(nums[right] == 2 && left < right) {
+                right--;
+            }
+            passpos = left;
+            while(passpos <= right) {
+                if(nums[passpos] == 0) {
+                    swap(nums, left, passpos);
+                    
+                    left++;
+                }
+                passpos++;
+            }
+            while(nums[right] == 2 && left < right) {
+                right--;
+            }
+            passpos = right;
+            while(passpos >= left) {
+                if(nums[passpos] == 2) {
+                    swap(nums, passpos, right);
+                    
+                    right--;
+                }
+                passpos--;
+            }
+       
+        
+    }
+    
+    private void swap(int[] nums, int left, int right) {
+            int temp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = temp;
+    }
 
 	public ListNode swapPairs(ListNode head) {
         if(head == null || head.next == null) return head;
@@ -201,6 +304,54 @@ class ReorderList {
             tail.next = halfofreverse;
         }
         halfoffirst = dummy.next;
+    }
+}
+
+class Queue {
+    public class ListNode {
+       int val;
+       ListNode next;
+       ListNode(int x) { val = x; }
+    }
+    int size;
+     ListNode dummy;
+     ListNode tail;
+    
+    public Queue() {
+        // do initialize if necessary
+        dummy = new ListNode(0);
+        tail = dummy;
+        size = 1;
+    }
+
+    public void enqueue(int item) {
+        // Write your code here
+        if(tail != null) {
+            tail.next = new ListNode(item);
+            size++;
+            tail = tail.next;
+        }
+        
+    }
+
+    public int dequeue() {
+        // Write your code here
+        if( size == 1 ) {
+            return 0;
+        } else {
+            //ListNode head = dummy.next;
+            if(dummy.next.next == null) {
+                int temp = dummy.next.val;
+                dummy.next = null;
+                tail = dummy;
+                size--;
+                return temp;
+            }
+            ListNode head = dummy.next;
+            dummy.next = dummy.next.next;
+            size--;
+            return head.val;
+        }
     }
 }
 

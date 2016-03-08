@@ -1,20 +1,55 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class PermutationAndSubset {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		ArrayList<Integer> nums = new ArrayList<Integer>();
 		nums.add(1);
 		nums.add(2);
 		nums.add(2);
 		permuteUnique(nums);
-		int[] A = {1,3,3,4,5};
-		totalOccurrence(A, 3);
 		int[] num = {4,4,5,5,6,6,7,7,0,0,1,1,2,2};
 		findMin(num);
+		int[] A = {1,3,3,4,5};
+		totalOccurrence(A, 3);	
 	}
+	// combination sum
+	/**
+     * @param candidates: A list of integers
+     * @param target:An integer
+     * @return: A list of lists of integers
+     */
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        // write your code here
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        if(candidates == null || candidates.length == 0 || target <= 0) {
+            return result;
+        }
+        List<Integer> list = new ArrayList<Integer>();
+        Arrays.sort(candidates);
+        dfs(result, list, candidates, target, 0, 0);
+        return result;
+    }
+    private static void dfs(List<List<Integer>> result, List<Integer> list, int[] candidates,
+                     int target, int sum, int pos) {
+                         if(sum == target) {
+                             result.add(new ArrayList(list));
+                             return;
+                         }
+                         for(int i = pos; i < candidates.length; i++) {
+                             sum += candidates[i];
+                             if(sum > target) break;
+                             list.add(candidates[i]);
+                             
+                             dfs(result, list, candidates, target,sum, i);
+                             list.remove(list.size()-1);
+                             sum -= candidates[i];  // purpose is recover the prvious status
+                         }
+                     }
+	
 	 /**
      * @param num: a rotated sorted array
      * @return: the minimum number in the array
@@ -44,6 +79,7 @@ public class PermutationAndSubset {
         }
         return num[start] <= num[end] ? num[start] : num[end];
     }
+    
 	 /**
      * @param A an integer array sorted in ascending order
      * @param target an integer
