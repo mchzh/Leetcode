@@ -6,9 +6,86 @@ public class StockAndProfit {
 		int[] stocksie = {100, 180, 260, 310, 40, 535, 695};
 		int total = MaxProfitofStock(stocksie);
 		System.out.println("Max profits is -> " + total);
-		findBestBuySellInterval(stocksie);
+		//findBestBuySellInterval(stocksie);
+		String s = new String("Hello");
+		System.out.println(s);
+		foo(s);
+		System.out.println(s);
+		StringBuilder sb = new StringBuilder("Hello");
+		System.out.println(sb);
+		foosb(sb);
+		System.out.println(sb);
+		
+		// backtracking test code region
+		BackTracking back = new BackTracking();
+		int grid[][] = { { 3, 0, 6, 5, 0, 8, 4, 0, 0 }, //
+				   { 5, 2, 0, 0, 0, 0, 0, 0, 0 }, //
+				   { 0, 8, 7, 0, 0, 0, 0, 3, 1 }, //
+				   { 0, 0, 3, 0, 1, 0, 0, 8, 0 }, //
+				   { 9, 0, 0, 8, 6, 3, 0, 0, 5 }, //
+				   { 0, 5, 0, 0, 9, 0, 6, 0, 0 }, //
+				   { 1, 3, 0, 0, 0, 0, 2, 5, 0 }, //
+				   { 0, 0, 0, 0, 0, 0, 0, 7, 4 }, //
+				   { 0, 0, 5, 2, 0, 6, 3, 0, 0 } };
+		//PrintTwoArrayContent(grid);
+		//back.GenerateBinarySequence(3);
+		//back.GenerateMarySequence(3, 3);
+		//back.Combinations("ABC");
+		//back.GenerateSubsets("ABCDE");
+		//int[] arr = {100, 180};
+		//back.GenerateSubsetsSumEqualK(stocksie, 280);
+		//back.Permutation("ABC");
+		//back.PrintSubsetsSizeK("ABCDE", 3);
+		//back.nQueens(4);
+		if(back.SolveSudoku(grid)) 
+			System.out.println("successful get sudoku!");
+		
+		// strbuffer and strbuilder execute effective speed test
+		int N = 77777777;
+        long t;
+        {
+            StringBuffer sbf = new StringBuffer();
+            t = System.currentTimeMillis();
+            for (int i = N; i --> 0 ;) {
+                sbf.append("");
+            }
+            System.out.println(System.currentTimeMillis() - t);
+        }
+        {
+            StringBuilder sbd = new StringBuilder();
+            t = System.currentTimeMillis();
+            for (int i = N; i --> 0 ;) {
+                sbd.append("");
+            }
+            System.out.println(System.currentTimeMillis() - t);
+        }
+
 	}
 
+	public static void PrintTwoArrayContent(int[][] arr) {
+		for(int i = 0; i < arr.length; i++) {
+			for(int j = 0; j < arr[0].length; j++) {
+				switch(j) {
+				case 0: { System.out.print("{ " + arr[i][j] + ","); }
+				case 8: { System.out.print(arr[i][j] + " }"); }
+				default: { System.out.print(arr[i][j] + ","); }
+				}
+				//System.out.print(arr[i][j] + ",");
+			}
+			System.out.println();
+		}
+	}
+	/*StringBuffer is synchronized, StringBuilder is not.
+	StringBuilder is faster than StringBuffer because it's not synchronized.. */
+	//http://www.meetqun.com/thread-2178-1-1.html
+
+	public static void foo(String s) {
+		s = new String("World");
+	}
+	public static void foosb(StringBuilder sb) {
+		//sb = new StringBuilder("World");
+		sb.replace(0, sb.length(), "World");
+	}
 	/*Maximum profit question: 
 		Suppose we have an array of integers which signify stock process over number of days. We want to figure out what is the maximum profit we can make by buying and selling stocks. If the array is in decreasing order then we cannot make any profit. 
 		{39, 20, 45, 51, 36, 23, 54, 69} 
