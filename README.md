@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/ChangzhengMa/MyPersonalTestProject/_apis/build/status/mchzh.pipelines-java?branchName=master)](https://dev.azure.com/ChangzhengMa/MyPersonalTestProject/_build/latest?definitionId=1&branchName=master)
+
 # Leetcode
 My code for questions of leetcode algorithm
 
